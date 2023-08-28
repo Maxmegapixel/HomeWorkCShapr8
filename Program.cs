@@ -22,7 +22,7 @@ RowsMinSumm(Mass);
 void RowsMinSumm(int[,] array)
 {
     int[] summ = new int[array.GetLength(0)];
-    for (int i = 0; i < array.GetLength(0) ; i++)
+    for (int i = 0; i < array.GetLength(0) ; i++) //нахождение суммы каждой строки
     { 
         for (int j = 0; j < array.GetLength(1); j++)
         {
@@ -31,7 +31,7 @@ void RowsMinSumm(int[,] array)
     }
     int MinIndex = 0;
     int MinSumm = summ[0];
-    for (int i = 0; i < summ.Length; i++)
+    for (int i = 0; i < summ.Length; i++) //поиск наименьшей суммы
     {
         if (MinSumm > summ[i] ) 
         {
@@ -39,11 +39,8 @@ void RowsMinSumm(int[,] array)
             MinIndex = i;
         }
     }
-    Console.WriteLine("Строка с наименьшей суммой элементов: ");
-    for (int i = 0; i < array.GetLength(1); i++)
-    {
-        Console.Write($"{array[MinIndex, i]} ");
-    }
+    Console.WriteLine($"Строка с наименьшей суммой элементов: {MinIndex}");
+    
 } 
 // Создание массива
 int[,] GetArray(int m, int n, int minValue, int maxValue)
