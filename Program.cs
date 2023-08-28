@@ -6,11 +6,11 @@
 // 18 20
 // 15 18
 
-int[,] MassFirst = GetArray(2, 4, 1, 9);
+int[,] MassFirst = GetArray(4, 2, 1, 9);
 StringInput("Первый массив: ");
 PrintArray(MassFirst);
 
-int[,] MassSecond = GetArray(4, 3, 1, 9);
+int[,] MassSecond = GetArray(2, 3, 1, 9);
 StringInput("Второй массив: ");
 PrintArray(MassSecond);
 
@@ -19,12 +19,13 @@ PrintArray(MatrixProduct(MassFirst, MassSecond));
 
 int[,] MatrixProduct(int[,] first, int[,] second)
 {
+    int[,] result = new int[first.GetLength(0), second.GetLength(1)];
     if (first.GetLength(1) != second.GetLength(0))   // Количество стлбцов первой матрицы должно быть равно количеству строк второй
     {
         StringInput("Эти матрицы нельзя перемножить!");  
-        
+        return result;
     }
-    int[,] result = new int[first.GetLength(0), second.GetLength(1)];
+    
     for (int i = 0; i < first.GetLength(0); i++)
     {
         for (int j = 0; j < second.GetLength(1); j++)
@@ -38,10 +39,8 @@ int[,] MatrixProduct(int[,] first, int[,] second)
     return result;
 }
 
-void StringInput(string text)
-{
-    Console.WriteLine(text); 
-} 
+void StringInput(string text) => Console.WriteLine(text); 
+
 
 // Создание массива
 int[,] GetArray(int m, int n, int minValue, int maxValue)
