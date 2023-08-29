@@ -6,7 +6,7 @@
 // 27(0,0,1) 90(0,1,1)
 // 26(1,0,1) 55(1,1,1)
 
-int[,,] MassFirst = GetArray(3, 3, 3, 10, 50);
+int[,,] MassFirst = GetArray(3, 3, 3, 10, 20);
 StringInput("массив: ");
 PrintArray(MassFirst);
 
@@ -22,9 +22,10 @@ void StringInput(string text) => Console.WriteLine(text);
 // Создание массива
 int[,,] GetArray(int raw, int col, int dep, int minValue, int maxValue)
 {
-    bool contains;
+
     int next;
     int temp;
+    
     int[,,] res = new int[raw, col, dep];
     for (int i = 0; i < raw; i++)
     {
@@ -32,26 +33,25 @@ int[,,] GetArray(int raw, int col, int dep, int minValue, int maxValue)
         {
             for (int k = 0; k < dep; k++)
             {
-                do
+                bool bit = false;
+                next = new Random().Next(minValue, maxValue + 1);
+                for (int m = 0; m < i; m++)
                 {
-                    next = new Random().Next(minValue, maxValue + 1);
-                    contains = false;
-                    for (int m = 0; m < i; m++)
+                    for (int n = 0; n < j; n++)
                     {
-                        for (int n = 0; n < j; n++)
+                        for (int l = 0; l < k; l++)
                         {
-                            for (int l = 0; l < k; l++)
+                            temp = res[m, n, l];
+                            if (temp == next)
                             {
-                                temp = res[m, n, l];
-                                if(temp == next)
-                                {
-                                    contains = true;
-                                    break;
-                                }
+                                bit = true;
+                                break;
                             }
                         }
+                    if (bit == true) break;    
                     }
-                } while (contains);
+                if (bit == true) break;    
+                }
                 res[i, j, k] = next;
             }
         }
