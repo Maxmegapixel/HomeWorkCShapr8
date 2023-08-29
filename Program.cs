@@ -6,7 +6,7 @@
 // 27(0,0,1) 90(0,1,1)
 // 26(1,0,1) 55(1,1,1)
 
-int[,,] MassFirst = GetArray(2, 2, 2, 10, 99);
+int[,,] MassFirst = GetArray(3, 3, 3, 10, 50);
 StringInput("массив: ");
 PrintArray(MassFirst);
 
@@ -16,20 +16,43 @@ PrintArray(MassFirst);
 
 
 
-void StringInput(string text) => Console.WriteLine(text); 
+void StringInput(string text) => Console.WriteLine(text);
 
 
 // Создание массива
-int[,,] GetArray(int m, int n, int l, int minValue, int maxValue)
+int[,,] GetArray(int raw, int col, int dep, int minValue, int maxValue)
 {
-    int[,,] res = new int[m, n, l];
-    for (int i = 0; i < m; i++)
+    bool contains;
+    int next;
+    int temp;
+    int[,,] res = new int[raw, col, dep];
+    for (int i = 0; i < raw; i++)
     {
-        for (int j = 0; j < n; j++)
+        for (int j = 0; j < col; j++)
         {
-            for (int k = 0; k < l; k++)
+            for (int k = 0; k < dep; k++)
             {
-                res[i, j, k] = new Random().Next(minValue, maxValue + 1);
+                do
+                {
+                    next = new Random().Next(minValue, maxValue + 1);
+                    contains = false;
+                    for (int m = 0; m < i; m++)
+                    {
+                        for (int n = 0; n < j; n++)
+                        {
+                            for (int l = 0; l < k; l++)
+                            {
+                                temp = res[m, n, l];
+                                if(temp == next)
+                                {
+                                    contains = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                } while (contains);
+                res[i, j, k] = next;
             }
         }
     }
@@ -50,3 +73,4 @@ void PrintArray(int[,,] array)
         }
     }
 }
+
