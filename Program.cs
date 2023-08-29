@@ -6,7 +6,7 @@
 // 27(0,0,1) 90(0,1,1)
 // 26(1,0,1) 55(1,1,1)
 
-int[,,] MassFirst = GetArray(3, 3, 3, 10, 20);
+int[,,] MassFirst = GetArray(3, 3, 3, 10, 50);
 StringInput("массив: ");
 PrintArray(MassFirst);
 
@@ -23,7 +23,7 @@ void StringInput(string text) => Console.WriteLine(text);
 int[,,] GetArray(int raw, int col, int dep, int minValue, int maxValue)
 {
 
-    int next;
+
     int temp;
     
     int[,,] res = new int[raw, col, dep];
@@ -34,25 +34,24 @@ int[,,] GetArray(int raw, int col, int dep, int minValue, int maxValue)
             for (int k = 0; k < dep; k++)
             {
                 bool bit = false;
-                next = new Random().Next(minValue, maxValue + 1);
-                for (int m = 0; m < i; m++)
+                res[i,j,k] = new Random().Next(minValue, maxValue + 1);
+                for (int m = 0; m < i+1; m++)
                 {
-                    for (int n = 0; n < j; n++)
+                    for (int n = 0; n < j+1; n++)
                     {
-                        for (int l = 0; l < k; l++)
+                        for (int l = 0; l < k+1; l++)
                         {
                             temp = res[m, n, l];
-                            if (temp == next)
+                            if (res[i,j,k] == temp)
                             {
-                                bit = true;
+                                k--;
                                 break;
                             }
+                            
                         }
                     if (bit == true) break;    
                     }
-                if (bit == true) break;    
-                }
-                res[i, j, k] = next;
+                }    
             }
         }
     }
