@@ -8,15 +8,84 @@
 
 
 
+PrintArray(SpiralArray(4, 4));
+
+
+int[,] SpiralArray(int row, int col)
+{
+    int[,] array = new int[row, col];
+    int i = 0;
+    int j = 0;
+    int k = 1;
+    int val=0;
+    do
+    {
+        switch (val % 4)
+        {
+            case 0:
+                {
+                    for (; j < row; j++)
+                    {
+                        array[i, j] = k;
+                        k++;
+                    }
+                    row--;
+                    i++;
+                    break;
+                }
+            case 1:
+                {
+                    for (; i < col - 1; i++)
+                    {
+                        array[i, j] = k;
+                        k++;
+                    }
+                    col--;
+                    j--;
+                    break;
+                }
+            case 2:
+                {
+                    for (; j < row; j--)
+                    {
+                        array[i, j] = k;
+                        k++;
+                    }
+                    row--;
+                    i--;
+                    break;
+                }
+            case 3:
+                {
+                    for (; i < col - 1; i--)
+                    {
+                        array[i, j] = k;
+                        k++;
+                    }
+                    col--;
+                    j++;
+                    break;
+                }
+
+        }
+    val++;
+
+    }
+    while (row * col > k);
+
+    return array;
+}
+
+
 
 // Печать массива
-void PrintArray(int[,] array)
+void PrintArray(int[,] mass)
 {
-    for (int i = 0; i < array.GetLength(0); i++)
+    for (int i = 0; i < mass.GetLength(0); i++)
     {
-        for (int j = 0; j < array.GetLength(1); j++)
+        for (int j = 0; j < mass.GetLength(1); j++)
         {
-            Console.Write($"{array[i, j]} ");
+            Console.Write($"{mass[i, j]} ");
         }
         Console.WriteLine();
     }
