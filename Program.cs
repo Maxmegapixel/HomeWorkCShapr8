@@ -6,13 +6,9 @@
 // 27(0,0,1) 90(0,1,1)
 // 26(1,0,1) 55(1,1,1)
 
-int[,,] MassFirst = GetArray(3, 3, 3, 10, 50);
+int[,,] MassFirst = GetArray(2, 2, 2, 10, 99);
 StringInput("массив: ");
 PrintArray(MassFirst);
-
-
-
-
 
 
 
@@ -20,56 +16,51 @@ void StringInput(string text) => Console.WriteLine(text);
 
 
 // Создание массива
-int[,,] GetArray(int raw, int col, int dep, int minValue, int maxValue)
+int[,,] GetArray(int row, int col, int dep, int minValue, int maxValue)
 {
-
-
-    int temp;
     
-    int[,,] res = new int[raw, col, dep];
-    for (int i = 0; i < raw; i++)
+    int[,,] result = new int[row, col, dep];
+    for (int i = 0; i < row; i++)
     {
         for (int j = 0; j < col; j++)
         {
             for (int k = 0; k < dep; k++)
             {
-                bool bit = false;
-                res[i,j,k] = new Random().Next(minValue, maxValue + 1);
-                for (int m = 0; m < i+1; m++)
+                int randomNumber;
+                do
                 {
-                    for (int n = 0; n < j+1; n++)
-                    {
-                        for (int l = 0; l < k+1; l++)
-                        {
-                            temp = res[m, n, l];
-                            if (res[i,j,k] == temp)
-                            {
-                                k--;
-                                break;
-                            }
-                            
-                        }
-                    if (bit == true) break;    
-                    }
-                }    
+                    randomNumber = new Random().Next(minValue, maxValue + 1);
+                } while (ArrayContains(result, randomNumber));
+                result[i, j, k] = randomNumber;
             }
         }
     }
-    return res;
+    return result;
+}
+bool ArrayContains(int[,,] array, int value)
+{
+    foreach (int element in array)
+    {
+        if (element == value)
+        {
+            return true;
+        }
+    }
+    return false;
 }
 // Печать массива
 void PrintArray(int[,,] array)
 {
-    for (int i = 0; i < array.GetLength(0); i++)
+    for (int k = 0; k < array.GetLength(2); k++)
     {
-        for (int j = 0; j < array.GetLength(1); j++)
+        for (int i = 0; i < array.GetLength(0); i++)
         {
-            for (int k = 0; k < array.GetLength(2); k++)
+            for (int j = 0; j < array.GetLength(1); j++)
             {
                 Console.Write($"{array[i, j, k]}({i},{j},{k}) ");
             }
             Console.WriteLine();
         }
+        Console.WriteLine();
     }
 }
-
