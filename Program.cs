@@ -5,71 +5,49 @@
 // 11 16 15 06
 // 10 09 08 07
 
-
-
-
 PrintArray(SpiralArray(4, 4));
-
 
 int[,] SpiralArray(int row, int col)
 {
     int[,] array = new int[row, col];
-    int i = 0;
-    int j = 0;
+    int rowStart = 0;
+    int colStart = 0;
     int k = 1;
-    int val=0;
+    int rowEnd = row - 1;
+    int colEnd = col - 1;
     do
     {
-        switch (val % 4)
+
+        for (int i = colStart; i <= colEnd; i++)
         {
-            case 0:
-                {
-                    for (; j < row; j++)
-                    {
-                        array[i, j] = k;
-                        k++;
-                    }
-                    row--;
-                    i++;
-                    break;
-                }
-            case 1:
-                {
-                    for (; i < col - 1; i++)
-                    {
-                        array[i, j] = k;
-                        k++;
-                    }
-                    col--;
-                    j--;
-                    break;
-                }
-            case 2:
-                {
-                    for (; j < row; j--)
-                    {
-                        array[i, j] = k;
-                        k++;
-                    }
-                    row--;
-                    i--;
-                    break;
-                }
-            case 3:
-                {
-                    for (; i < col - 1; i--)
-                    {
-                        array[i, j] = k;
-                        k++;
-                    }
-                    col--;
-                    j++;
-                    break;
-                }
+            array[rowStart, i] = k++;
+        }
+        rowStart++;
+
+        for (int i = rowStart; i <= rowEnd; i++)
+        {
+            array[i, colEnd] = k++;
+        }
+        colEnd--;
+
+        if (rowStart <= rowEnd)
+        {
+            for (int i = colEnd; i >= colStart; i--)
+            {
+                array[rowEnd, i] = k++;
+            }
+            rowEnd--;
+        }
+
+        if (colStart <= colEnd)
+        {
+            for (int i = rowEnd; i >= rowStart; i--)
+            {
+                array[i, colStart] = k++;
+            }
+            colStart++;
 
         }
-    val++;
-
     }
     while (row * col > k);
 
@@ -85,7 +63,7 @@ void PrintArray(int[,] mass)
     {
         for (int j = 0; j < mass.GetLength(1); j++)
         {
-            Console.Write($"{mass[i, j]} ");
+            Console.Write($"{mass[i, j]:00} ");
         }
         Console.WriteLine();
     }
